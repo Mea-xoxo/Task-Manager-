@@ -6,11 +6,11 @@ from django.contrib import messages
 
 
 #list tasks of logged-in User
-class TaskListView(ListView):
+class TaskListView(LoginRequiredMixin,ListView):
     model = Task
     template_name = "tasks/task_list.html"
     context_object_name = "tasks"
-    login_url = '/login'
+    login_url = '/login/'
 
     def get_queryset(self):
         return Task.objects.filter(user = self.request.user)
